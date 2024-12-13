@@ -4,7 +4,18 @@ Esta API foi desenvolvida para gerenciar um restaurante, oferecendo funcionalida
 
 ---
 
-## 🛠️ Funcionalidades
+## 🛠️ Tecnologias Utilizadas
+
+- 🟢 **Node.js**: Ambiente de execução para JavaScript no servidor.
+- 🟦 **TypeScript**: Superset de JavaScript que adiciona tipagem estática.
+- 🗂️ **SQLite3**: Banco de dados relacional leve e eficiente.
+- ⚡ **Express**: Framework para construção de aplicações web e APIs.
+- 🔧 **Knex.js**: Query builder para integração com o banco de dados.
+- 💎 **Zod**: Biblioteca de validação e tipagem de dados.
+
+---
+
+## ⚙️ Funcionalidades
 
 ### 🍴 Produtos
 
@@ -24,17 +35,6 @@ Esta API foi desenvolvida para gerenciar um restaurante, oferecendo funcionalida
 - 🆕 **Criar Pedido**: Registre pedidos para uma mesa.
 - 📃 **Listar Pedidos**: Consulte todos os pedidos realizados.
 - 💵 **Mostrar Total do Pedido**: Calcule o total de um pedido.
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- 🟢 **Node.js**: Ambiente de execução para JavaScript no servidor.
-- 🟦 **TypeScript**: Superset de JavaScript que adiciona tipagem estática.
-- 🗂️ **SQLite3**: Banco de dados relacional leve e eficiente.
-- ⚡ **Express**: Framework para construção de aplicações web e APIs.
-- 🔧 **Knex.js**: Query builder para integração com o banco de dados.
-- 💎 **Zod**: Biblioteca de validação e tipagem de dados.
 
 ---
 
@@ -91,7 +91,7 @@ npm run dev
 
 ---
 
-## 🔗 Endpoints
+## 📡 Estrutura dos Endpoints
 
 ### 🍴 Produtos (`/products`)
 
@@ -108,13 +108,104 @@ npm run dev
 
 - **GET** `/` - Listar todas as sessões de mesas.
 - **POST** `/` - Criar uma nova sessão de mesa.
-- **PATCH** `/:id` - Atualizar uma sessão de mesa.
+- **PATCH** `/:id` - Finalizar uma sessão de mesa.
 
 ### 📝 Pedidos (`/orders`)
 
 - **POST** `/` - Criar um novo pedido.
 - **GET** `/table-session/:table_session_id` - Listar pedidos de uma sessão de mesa.
 - **GET** `/table-session/:table_session_id/total` - Mostrar o valor total de um pedido.
+
+---
+
+## 🔗 Endpoints Detalhados
+
+### 🍴 Produtos (`/products`)
+
+#### 📃 Listar Produtos
+- **Descrição**: Listar todos os produtos disponíveis.
+- **Método**: `GET`
+- **Endpoint**: `/products`
+
+#### 🆕 Criar Produto
+- **Descrição**: Criar um novo produto.
+- **Método**: `POST`
+- **Endpoint**: `/products`
+- **Corpo da Requisição:**
+```json
+{
+    "name": "Porção de batata frita",
+    "price": 59.90
+}
+```
+
+#### ✏️ Atualizar Produto
+- **Descrição**: Atualizar as informações de um produto existente.
+- **Método**: `PUT`
+- **Endpoint**: `/products/:id`
+
+#### ❌ Deletar Produto
+- **Descrição**: Remover um produto do menu.
+- **Método**: `DELETE`
+- **Endpoint**: `/products/:id`
+
+
+### 🪑 Mesas (`/tables`)
+
+#### 📃 Listar Mesas
+- **Descrição**: Listar todas as mesas disponíveis.
+- **Método**: `GET`
+- **Endpoint**: `/tables`
+
+
+### 🔄 Sessões de Mesas (`/tables-sessions`)
+
+#### 🔓 Abrir Mesa
+- **Descrição**: Criar uma nova sessão para uma mesa.
+- **Método**: `POST`
+- **Endpoint**: `/tables-sessions`
+- **Corpo da Requisição:**
+```json
+{
+    "table_id": 1
+}
+```
+
+#### 📃 Listar Sessões de Mesas
+- **Descrição**: Listar todas as sessões de mesas ativas.
+- **Método**: `GET`
+- **Endpoint**: `/tables-sessions`
+
+#### 🔒 Fechar Mesa
+- **Descrição**: Finaliza a sessão de uma mesa.
+- **Método**: `PATCH`
+- **Endpoint**: `/tables-sessions/:id`
+
+
+### 📝 Pedidos (`/orders`)
+
+#### 🆕 Criar Pedido
+- **Descrição**: Criar um novo pedido para uma mesa.
+- **Método**: `POST`
+- **Endpoint**: `/orders`
+- **Corpo da Requisição:**
+```json
+{
+    "table_session_id": 1,
+    "product_id": 10,
+    "quantity": 2
+}
+```
+
+#### 📃 Listar Pedidos
+- **Descrição**: Listar todos os pedidos de uma sessão de mesa.
+- **Método**: `GET`
+- **Endpoint**: `/orders/table-session/:table_session_id`
+
+#### 💵 Mostrar Total do Pedido
+- **Descrição**: Mostrar o valor total de um pedido realizado em uma sessão de mesa.
+- **Método**: `GET`
+- **Endpoint**: `/orders/table-session/:table_session_id/total`
 
 ---
 
